@@ -63,14 +63,11 @@
   устроены так же, только с атрибутом data-aspect="landscape" —
   он говорит модальному окну открыть плеер в широком формате.
 
-  Блок «Обо мне» (внизу раздела «Горизонтальные»):
-  — фото сейчас заглушка (иконка на градиенте). Чтобы поставить
-    свою фотографию — найдите div class="about-photo", удалите
-    внутри него строку с <svg class="avatar-icon" ...> и вставьте
-    вместо неё <img src="previews/moye-foto.jpg" alt="Ваше имя">
-    (саму фотографию положите в папку previews рядом с index.html);
-  — текст биографии и три «сильные стороны» — замените текст
-    в квадратных скобках [...] на свой, они помечены TODO рядом.
+  Блок «Обо мне» — теперь отдельный раздел (id="about", ссылка
+  в меню). Фото меняется так: найдите div class="about-photo" и
+  поменяйте путь в src у <img> на свой файл из папки previews.
+  Текст биографии — .bio, три «сильные стороны» — .strength-item,
+  их можно смело переписывать прямо в тексте.
 
   Анимации появления:
   при загрузке страницы шапка, текст в хиро-блоке и три телефона
@@ -296,6 +293,7 @@
   .mobile-menu.show a:nth-child(3){transition-delay:.15s;}
   .mobile-menu.show a:nth-child(4){transition-delay:.2s;}
   .mobile-menu.show a:nth-child(5){transition-delay:.25s;}
+  .mobile-menu.show a:nth-child(6){transition-delay:.3s;}
   .mobile-menu a:active{background:var(--glass-fill-strong);}
 
   /* ================= HERO ================= */
@@ -687,8 +685,29 @@
 
   /* ================= RESPONSIVE ================= */
   @media (max-width:980px){
-    .hero-grid{grid-template-columns:1fr;gap:70px;}
-    .phone-stack{height:420px;max-width:420px;margin:0 auto;}
+    .hero-grid{grid-template-columns:1fr;gap:48px;}
+    .phone-stack{
+      height:auto;
+      max-width:380px;
+      margin:0 auto;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:6px 0 4px;
+    }
+    .phone-stack .phone{
+      position:relative;
+      width:34%;
+      max-width:150px;
+      right:auto;top:auto;left:auto;
+      box-shadow:0 20px 40px -16px rgba(0,0,0,.7);
+    }
+    .phone-stack .phone-b{transform:rotate(-9deg);z-index:1;margin-right:-16px;opacity:.85;}
+    .phone-stack .phone-a{transform:rotate(0deg) scale(1.1);z-index:3;}
+    .phone-stack .phone-c{transform:rotate(9deg);z-index:2;margin-left:-16px;}
+    .phone-stack:hover .phone-a{transform:rotate(0deg) scale(1.1);}
+    .phone-stack:hover .phone-b{transform:rotate(-9deg);}
+    .phone-stack:hover .phone-c{transform:rotate(9deg);}
     .work-grid{grid-template-columns:repeat(2,1fr);}
     .hz-grid{grid-template-columns:repeat(2,1fr);}
     .process-grid{grid-template-columns:repeat(2,1fr);}
@@ -737,6 +756,7 @@
     <nav class="nav-links">
       <a href="#work">Вертикальные</a>
       <a href="#horizontal">Горизонтальные</a>
+      <a href="#about">Обо мне</a>
       <a href="#process">Как работаю</a>
       <a href="#contact">Контакты</a>
     </nav>
@@ -752,6 +772,7 @@
 <div class="mobile-menu glass" id="mobileMenu">
   <a href="#work">Вертикальные</a>
   <a href="#horizontal">Горизонтальные</a>
+  <a href="#about">Обо мне</a>
   <a href="#process">Как работаю</a>
   <a href="#contact">Контакты</a>
   <a href="https://t.me/D3dM4kar" target="_blank" rel="noopener" style="color:var(--accent-rec);">Написать в Telegram →</a>
@@ -976,25 +997,30 @@
           </div>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ME ================= -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section-head reveal-el">
+        <div>
+          <span class="eyebrow" style="margin-bottom:16px;"><span class="rec-dot"></span> обо мне</span>
+          <h2>Немного обо мне</h2>
+        </div>
+      </div>
 
       <div class="about-me reveal-el">
         <div class="about-photo">
-          <!-- TODO: замените на свою фотографию — удалите строку с svg ниже и вставьте вместо неё:
-               <img src="previews/moye-foto.jpg" alt="Макар Капкатов">
-               (файл фотографии положите в папку previews рядом с index.html) -->
-          <svg class="avatar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"></svg> <img src="previews/макар3.jpg">
+          <img src="previews/макар3.jpg" alt="Макар Капкатов">
         </div>
         <div class="about-me-text">
-          <span class="eyebrow" style="margin-bottom:16px;"><span class="rec-dot"></span> обо мне</span>
-          <h3>Немного обо мне</h3>
-          <!-- TODO: замените на свою реальную историю -->
           <p class="bio">Монтажом я занимаюсь уже более 2 лет. Всё началось с увлечения видео и YouTube — мне всегда было интересно не только смотреть, но и понимать, как создаётся визуал и почему он работает.
 
 За это время я смонтировал 600+ видео для сотен клиентов: от Reels и рекламных роликов до подкастов и сложных проектов.
 
 Для меня монтаж — это не просто техническая работа. Я стараюсь чувствовать стиль проекта, работать с ритмом и деталями и превращать исходный материал в видео, которое действительно хочется смотреть.</p>
           <div class="strengths">
-            <!-- TODO: замените на свои реальные сильные стороны и то, откуда они у вас -->
             <div class="strength-item">
               <span class="s-num">01</span>
               <div>
@@ -1101,6 +1127,7 @@
     <div class="footer-links">
       <a href="#work">Вертикальные</a>
       <a href="#horizontal">Горизонтальные</a>
+      <a href="#about">Обо мне</a>
       <a href="#process">Как работаю</a>
       <a href="https://t.me/D3dM4kar" target="_blank" rel="noopener">@D3dM4kar</a>
     </div>
